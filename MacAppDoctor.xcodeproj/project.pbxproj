@@ -1,0 +1,200 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		27E4A01D4BFE1483CED4EBC4 /* CommandRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1FB81944B469FE51F7504D /* CommandRunner.swift */; };
+		5F2424329F5E5EF093153576 /* DiagnosisEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8D3584E20051D04232F9DB /* DiagnosisEngine.swift */; };
+		7845DE3E793B7FE4A3FF56DC /* ExtendedAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6402F354F0CC02C23C1C03 /* ExtendedAttributes.swift */; };
+		15C125B2065644C50AFD24B2 /* FileInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F1DA4751912EE179D90753 /* FileInspector.swift */; };
+		A285FF98DDFED85C510C1D6A /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 281DF465896DD5FCA6195D0A /* Models.swift */; };
+		4C02E6361C0C3259117F2B3A /* RepairService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A9E04CF4584BE7BC6C9160 /* RepairService.swift */; };
+		3C6EA6C0238F3FFBF05A1FAB /* MacAppDoctorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DCBAF01A4C09BFC5751E0B /* MacAppDoctorApp.swift */; };
+		CEF7012FB31AD60AB06670B7 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D15781A27388B895C7C7F1 /* AppState.swift */; };
+		8C0AD24F58E62E3B0DA67D39 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBB7A51D58E6BEEB99CFF35F /* Components.swift */; };
+		FB762380443D984BA93C835D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147848B75BD2B64154059E36 /* ContentView.swift */; };
+		1271579DFD23041846364F0A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6961F265A72A383DC3159B0 /* MainView.swift */; };
+		BDBA0B8F6A3DAFAA66CC03D9 /* OpenAnywayAutomator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3111BBE159CF47F1EDB847 /* OpenAnywayAutomator.swift */; };
+		5065C82B55F856A2D61623C3 /* OpenAnywayGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F1D2B160CDEE1F6256A48E /* OpenAnywayGuide.swift */; };
+		5736A74EE81234A6271E596F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 473CFEF438978E2E7262EA9C /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		CF1FB81944B469FE51F7504D /* CommandRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommandRunner.swift"; sourceTree = "<group>"; };
+		EB8D3584E20051D04232F9DB /* DiagnosisEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiagnosisEngine.swift"; sourceTree = "<group>"; };
+		1E6402F354F0CC02C23C1C03 /* ExtendedAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExtendedAttributes.swift"; sourceTree = "<group>"; };
+		00F1DA4751912EE179D90753 /* FileInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileInspector.swift"; sourceTree = "<group>"; };
+		281DF465896DD5FCA6195D0A /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Models.swift"; sourceTree = "<group>"; };
+		D7A9E04CF4584BE7BC6C9160 /* RepairService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RepairService.swift"; sourceTree = "<group>"; };
+		38DCBAF01A4C09BFC5751E0B /* MacAppDoctorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MacAppDoctorApp.swift"; sourceTree = "<group>"; };
+		D6D15781A27388B895C7C7F1 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppState.swift"; sourceTree = "<group>"; };
+		EBB7A51D58E6BEEB99CFF35F /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Components.swift"; sourceTree = "<group>"; };
+		147848B75BD2B64154059E36 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView.swift"; sourceTree = "<group>"; };
+		B6961F265A72A383DC3159B0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainView.swift"; sourceTree = "<group>"; };
+		CD3111BBE159CF47F1EDB847 /* OpenAnywayAutomator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OpenAnywayAutomator.swift"; sourceTree = "<group>"; };
+		00F1D2B160CDEE1F6256A48E /* OpenAnywayGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OpenAnywayGuide.swift"; sourceTree = "<group>"; };
+		473CFEF438978E2E7262EA9C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A802F398D810872E35B7CFFD /* OpenAnyway.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenAnyway.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EC981767C62EA833B107403F /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2E682101185D3B32FB956CAD = {isa = PBXGroup; children = (9A582D45D26EB7982CCD38BC /* MacAppDoctor */, 5ADE8A4128725EB9150C196B /* Products */, ); sourceTree = "<group>"; };
+		9A582D45D26EB7982CCD38BC /* MacAppDoctor */ = {isa = PBXGroup; children = (
+			38DCBAF01A4C09BFC5751E0B /* MacAppDoctorApp.swift */,
+			9AC6F3A7FFBC5F3411551258 /* Core */,
+			C8E9BA487CA0C6752C1C48FB /* UI */,
+			473CFEF438978E2E7262EA9C /* Assets.xcassets */,
+		); path = MacAppDoctor; sourceTree = "<group>"; };
+		9AC6F3A7FFBC5F3411551258 /* Core */ = {isa = PBXGroup; children = (
+			CF1FB81944B469FE51F7504D /* CommandRunner.swift */,
+			EB8D3584E20051D04232F9DB /* DiagnosisEngine.swift */,
+			1E6402F354F0CC02C23C1C03 /* ExtendedAttributes.swift */,
+			00F1DA4751912EE179D90753 /* FileInspector.swift */,
+			281DF465896DD5FCA6195D0A /* Models.swift */,
+			D7A9E04CF4584BE7BC6C9160 /* RepairService.swift */,
+		); path = Core; sourceTree = "<group>"; };
+		C8E9BA487CA0C6752C1C48FB /* UI */ = {isa = PBXGroup; children = (
+			D6D15781A27388B895C7C7F1 /* AppState.swift */,
+			EBB7A51D58E6BEEB99CFF35F /* Components.swift */,
+			147848B75BD2B64154059E36 /* ContentView.swift */,
+			B6961F265A72A383DC3159B0 /* MainView.swift */,
+			CD3111BBE159CF47F1EDB847 /* OpenAnywayAutomator.swift */,
+			00F1D2B160CDEE1F6256A48E /* OpenAnywayGuide.swift */,
+		); path = UI; sourceTree = "<group>"; };
+		5ADE8A4128725EB9150C196B /* Products */ = {isa = PBXGroup; children = (A802F398D810872E35B7CFFD /* OpenAnyway.app */, ); name = Products; sourceTree = "<group>"; };
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F762108CA727F0BCD961FC74 /* MacAppDoctor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA3E3883E4B4A66E86595080 /* Build configuration list for PBXNativeTarget "MacAppDoctor" */;
+			buildPhases = (CD691BBBE993DA89463DFB43 /* Sources */, EC981767C62EA833B107403F /* Frameworks */, 984AA73C6A3518E356174B49 /* Resources */, );
+			buildRules = (); dependencies = (); name = MacAppDoctor;
+			productName = MacAppDoctor; productReference = A802F398D810872E35B7CFFD /* OpenAnyway.app */; productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		16EEAF57BAFC2A41CAB7C99A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {F762108CA727F0BCD961FC74 = {CreatedOnToolsVersion = 16.0; }; };
+			};
+			buildConfigurationList = 4B2380CA9135CE36448D46F6 /* Build configuration list for PBXProject "MacAppDoctor" */;
+			compatibilityVersion = "Xcode 14.0"; developmentRegion = zh-Hans;
+			hasScannedForEncodings = 0; knownRegions = (zh-Hans, en, Base, );
+			mainGroup = 2E682101185D3B32FB956CAD; productRefGroup = 5ADE8A4128725EB9150C196B; projectDirPath = ""; projectRoot = "";
+			targets = (F762108CA727F0BCD961FC74 /* MacAppDoctor */, );
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		984AA73C6A3518E356174B49 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (5736A74EE81234A6271E596F /* Assets.xcassets in Resources */, ); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CD691BBBE993DA89463DFB43 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (
+			27E4A01D4BFE1483CED4EBC4 /* CommandRunner.swift in Sources */,
+			5F2424329F5E5EF093153576 /* DiagnosisEngine.swift in Sources */,
+			7845DE3E793B7FE4A3FF56DC /* ExtendedAttributes.swift in Sources */,
+			15C125B2065644C50AFD24B2 /* FileInspector.swift in Sources */,
+			A285FF98DDFED85C510C1D6A /* Models.swift in Sources */,
+			4C02E6361C0C3259117F2B3A /* RepairService.swift in Sources */,
+			3C6EA6C0238F3FFBF05A1FAB /* MacAppDoctorApp.swift in Sources */,
+			CEF7012FB31AD60AB06670B7 /* AppState.swift in Sources */,
+			8C0AD24F58E62E3B0DA67D39 /* Components.swift in Sources */,
+			FB762380443D984BA93C835D /* ContentView.swift in Sources */,
+			1271579DFD23041846364F0A /* MainView.swift in Sources */,
+			BDBA0B8F6A3DAFAA66CC03D9 /* OpenAnywayAutomator.swift in Sources */,
+			5065C82B55F856A2D61623C3 /* OpenAnywayGuide.swift in Sources */,
+		); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2CE647D298F7377539BDA550 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				GCC_OPTIMIZATION_LEVEL = 0;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+			}; name = Debug; };
+		5B9A8EB41E15F7E3691B6EE3 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				GCC_OPTIMIZATION_LEVEL = s;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+			}; name = Release; };
+		A61834CFCE19FE57555A45A0 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGNING_ALLOWED = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "OpenAnyway";
+				INFOPLIST_KEY_CFBundleName = "OpenAnyway";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.example.openanyway";
+				PRODUCT_NAME = "OpenAnyway";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_VERSION = 5.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			}; name = Debug; };
+		E87D7CEB36F91952591F2518 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGNING_ALLOWED = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "OpenAnyway";
+				INFOPLIST_KEY_CFBundleName = "OpenAnyway";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.example.openanyway";
+				PRODUCT_NAME = "OpenAnyway";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_VERSION = 5.0;
+				ONLY_ACTIVE_ARCH = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			}; name = Release; };
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4B2380CA9135CE36448D46F6 /* Build configuration list for PBXProject "MacAppDoctor" */ = {isa = XCConfigurationList; buildConfigurations = (2CE647D298F7377539BDA550 /* Debug */, 5B9A8EB41E15F7E3691B6EE3 /* Release */, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		FA3E3883E4B4A66E86595080 /* Build configuration list for PBXNativeTarget "MacAppDoctor" */ = {isa = XCConfigurationList; buildConfigurations = (A61834CFCE19FE57555A45A0 /* Debug */, E87D7CEB36F91952591F2518 /* Release */, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+/* End XCConfigurationList section */
+	};
+	rootObject = 16EEAF57BAFC2A41CAB7C99A /* Project object */;
+}
