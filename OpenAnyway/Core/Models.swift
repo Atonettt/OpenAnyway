@@ -21,11 +21,11 @@ enum ItemKind: String, Codable, CaseIterable {
 
     var title: String {
         switch self {
-        case .app: return "应用程序 APP"
-        case .bundle: return "插件 / 扩展包"
-        case .dmg: return "磁盘映像 DMG"
-        case .pkg: return "安装程序 PKG"
-        case .other: return "其他文件 / 命令行工具"
+        case .app: return L("应用程序 APP", "Application")
+        case .bundle: return L("插件 / 扩展包", "Plug-in / bundle")
+        case .dmg: return L("磁盘映像 DMG", "Disk image (DMG)")
+        case .pkg: return L("安装程序 PKG", "Installer (PKG)")
+        case .other: return L("其他文件 / 命令行工具", "Other file / CLI tool")
         }
     }
 
@@ -48,10 +48,10 @@ enum CheckLevel: String, Codable {
 
     var title: String {
         switch self {
-        case .passed: return "通过"
-        case .warning: return "注意"
-        case .failed: return "未通过"
-        case .information: return "信息"
+        case .passed: return L("通过", "Passed")
+        case .warning: return L("注意", "Warning")
+        case .failed: return L("未通过", "Failed")
+        case .information: return L("信息", "Info")
         }
     }
 
@@ -70,13 +70,13 @@ enum SignatureKind: String, Codable {
 
     var title: String {
         switch self {
-        case .unsigned: return "未签名"
-        case .adhoc: return "临时签名（ad-hoc）"
-        case .developerID: return "Developer ID 开发者签名"
-        case .appStore: return "Mac App Store 签名"
-        case .apple: return "Apple 系统签名"
-        case .otherCertificate: return "其他证书签名"
-        case .unknown: return "无法识别"
+        case .unsigned: return L("未签名", "Unsigned")
+        case .adhoc: return L("临时签名（ad-hoc）", "Ad-hoc signed")
+        case .developerID: return L("Developer ID 开发者签名", "Developer ID signed")
+        case .appStore: return L("Mac App Store 签名", "Mac App Store signed")
+        case .apple: return L("Apple 系统签名", "Apple signed")
+        case .otherCertificate: return L("其他证书签名", "Signed (other certificate)")
+        case .unknown: return L("无法识别", "Unknown")
         }
     }
 
@@ -162,9 +162,9 @@ enum FixRisk: Int, Codable, Comparable {
 
     var title: String {
         switch self {
-        case .low: return "低风险"
-        case .medium: return "中风险"
-        case .high: return "高风险"
+        case .low: return L("低风险", "Low risk")
+        case .medium: return L("中风险", "Medium risk")
+        case .high: return L("高风险", "High risk")
         }
     }
 
@@ -197,10 +197,10 @@ enum FixAction: String, Codable, CaseIterable, Identifiable {
 
     var title: String {
         switch self {
-        case .copyToApplications: return "复制到“应用程序”文件夹"
-        case .clearQuarantine: return "移除下载隔离标记（含内部所有文件）"
-        case .clearAllAttributes: return "清除全部扩展属性"
-        case .adhocResign: return "本地重新签名（ad-hoc）"
+        case .copyToApplications: return L("复制到“应用程序”文件夹", "Copy to the Applications folder")
+        case .clearQuarantine: return L("移除下载隔离标记（含内部所有文件）", "Remove quarantine flags (all files inside)")
+        case .clearAllAttributes: return L("清除全部扩展属性", "Clear all extended attributes")
+        case .adhocResign: return L("本地重新签名（ad-hoc）", "Re-sign locally (ad-hoc)")
         }
     }
 

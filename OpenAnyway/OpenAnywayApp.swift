@@ -16,7 +16,7 @@ struct OpenAnywayApp: App {
         .commands {
             CommandGroup(replacing: .newItem) { }
             CommandGroup(after: .appInfo) {
-                Button("打开备份文件夹") { AppState.openBackupFolder() }
+                Button(L("打开备份文件夹", "Open Backup Folder")) { AppState.openBackupFolder() }
             }
         }
     }

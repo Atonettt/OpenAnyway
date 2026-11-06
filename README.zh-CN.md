@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="MacAppDoctor/Assets.xcassets/AppIcon.appiconset/icon_256.png" width="128" alt="OpenAnyway 图标">
+<img src="OpenAnyway/Assets.xcassets/AppIcon.appiconset/icon_256.png" width="128" alt="OpenAnyway 图标">
 
 # OpenAnyway
 
@@ -18,9 +18,9 @@
 </div>
 
 <p align="center">
-  <img src="docs/screenshot-empty.png" width="45%" alt="拖入应用">
+  <img src="docs/screenshot-empty-zh.png" width="45%" alt="拖入应用">
   &nbsp;
-  <img src="docs/screenshot-result.png" width="45%" alt="一键修复">
+  <img src="docs/screenshot-result-zh.png" width="45%" alt="一键修复">
 </p>
 
 ---
@@ -40,6 +40,7 @@
 - **一键放行（仍要打开）**：对 macOS 仍然拦截的应用，自动打开“系统设置 → 隐私与安全性”，找到这个应用对应的 **仍要打开** 按钮并点击，你只需用触控 ID 或密码确认。
 - **默认安全**：只修改你选中的那一个应用，重签名前自动备份，不会关闭 Gatekeeper 或 SIP，永远不会点“移到废纸篓”。
 - **不只是应用**：DMG、PKG 安装包、插件（VST3、AU 等）、命令行工具也能处理。
+- **中英文界面**：自动跟随系统语言。
 - 原生 SwiftUI 应用，下载仅约 1 MB，完全离线运行，同时支持 Apple 芯片和 Intel。
 
 ## 安装
@@ -109,29 +110,30 @@ OpenAnyway 使用本地签名，macOS 会把每个新版本当成不同的应用
 ```bash
 git clone https://github.com/Atonettt/OpenAnyway.git
 cd OpenAnyway
-xcodebuild -project MacAppDoctor.xcodeproj -scheme MacAppDoctor \
+xcodebuild -project OpenAnyway.xcodeproj -scheme OpenAnyway \
   -configuration Release -derivedDataPath ./DerivedData build
 open DerivedData/Build/Products/Release/OpenAnyway.app
 ```
 
-也可以用 Xcode 打开 `MacAppDoctor.xcodeproj`，按 ⌘R 运行。
+也可以用 Xcode 打开 `OpenAnyway.xcodeproj`，按 ⌘R 运行。
 
 运行核心测试：
 
 ```bash
-swiftc MacAppDoctor/Core/*.swift Tests/CoreSmokeTests.swift -o /tmp/openanyway-tests && /tmp/openanyway-tests
+swiftc OpenAnyway/Core/*.swift Tests/CoreSmokeTests.swift -o /tmp/openanyway-tests && /tmp/openanyway-tests
 ```
 
 <details>
 <summary>项目结构</summary>
 
 ```text
-MacAppDoctor/
+OpenAnyway/
   Core/                       核心逻辑，不含界面（有单元测试）
     FileInspector.swift       只读检查：签名、隔离标记、Gatekeeper、架构等
     DiagnosisEngine.swift     判断原因并给出推荐修复
     RepairService.swift       执行修复、管理员权限、备份、复查
     ExtendedAttributes.swift  读写隔离标记等扩展属性
+    Localization.swift        中英文文本
     CommandRunner.swift       不经过 shell 调用系统工具
   UI/
     MainView.swift            唯一的主窗口

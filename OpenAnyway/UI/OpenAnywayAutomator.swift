@@ -109,7 +109,7 @@ final class OpenAnywayAutomator {
 
         if await isStablyRunning() { return .launched }
 
-        await say("① 尝试打开一次，让 macOS 记录这次拦截…")
+        await say(L("① 尝试打开一次，让 macOS 记录这次拦截…", "① Opening the app once so macOS records the block…"))
         await open()
         // Dismiss the "damaged / cannot be opened" alert with its safe button.
         for _ in 0..<16 {
@@ -118,7 +118,7 @@ final class OpenAnywayAutomator {
             if pressAgentButton(Self.dismissTitles) { break }
         }
 
-        await say("② 打开“隐私与安全性”，寻找“仍要打开”按钮…")
+        await say(L("② 打开“隐私与安全性”，寻找“仍要打开”按钮…", "② Opening Privacy & Security and looking for “Open Anyway”…"))
         await MainActor.run { openPrivacySecurity() }
         var button: AXUIElement?
         for attempt in 0..<30 {
@@ -130,7 +130,7 @@ final class OpenAnywayAutomator {
         guard let button else { return .buttonNotFound }
         if dryRun { return .foundButton }
 
-        await say("③ 已点击“仍要打开”，请用触控 ID 或开机密码确认…")
+        await say(L("③ 已点击“仍要打开”，请用触控 ID 或开机密码确认…", "③ Clicked “Open Anyway”. Confirm with Touch ID or your password…"))
         AX.press(button)
 
         // Wait for the user to authenticate. Approval removes the button or launches the app.
@@ -140,7 +140,7 @@ final class OpenAnywayAutomator {
             pressAgentButton(Self.confirmOpenTitles)
             let stillBlocked = AX.app(bundleID: Self.settingsID).flatMap { openAnywayButton(in: $0) } != nil
             if !stillBlocked && tick > 2 {
-                await say("④ 已放行，正在打开应用…")
+                await say(L("④ 已放行，正在打开应用…", "④ Approved. Opening the app…"))
                 await open()
                 for _ in 0..<30 {
                     try? await Task.sleep(nanoseconds: 500_000_000)

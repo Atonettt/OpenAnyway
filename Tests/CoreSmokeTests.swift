@@ -16,6 +16,7 @@ struct CoreSmokeTests {
     }
 
     static func main() {
+        UserDefaults.standard.set("zh", forKey: "OpenAnywayLanguage")
         let official = String(repeating: "a", count: 64)
         check(Checksum.normalize(official.uppercased()) == official, "checksum normalize")
         check(Checksum.normalize("incorrect") == nil, "checksum reject")
@@ -83,6 +84,12 @@ struct CoreSmokeTests {
         check(goodDMG.suggestions.first?.risk == .low, "verified dmg → low risk")
 
         check(FixAction.clearQuarantine.command(for: "/a/it's.app") == "xattr -dr com.apple.quarantine '/a/it'\\''s.app'", "command quoting")
+        // English UI
+        UserDefaults.standard.set("en", forKey: "OpenAnywayLanguage")
+        check(DiagnosisEngine.diagnose(report(.other) { _ in }).title == "No problems found", "English title")
+        check(FixAction.clearQuarantine.title.hasPrefix("Remove quarantine"), "English fix title")
+        check(notarized.title == "被 macOS 拦截了", "Chinese title kept from earlier run")
+        UserDefaults.standard.removeObject(forKey: "OpenAnywayLanguage")
         print("PASS")
     }
 }

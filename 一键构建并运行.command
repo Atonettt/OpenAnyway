@@ -9,7 +9,7 @@ if ! xcode-select -p >/dev/null 2>&1 || ! command -v xcodebuild >/dev/null 2>&1;
   read -r -p "回车退出..." _
   exit 1
 fi
-if xcodebuild -project MacAppDoctor.xcodeproj -scheme MacAppDoctor \
+if xcodebuild -project OpenAnyway.xcodeproj -scheme OpenAnyway \
   -configuration Debug -derivedDataPath "$PROJECT_DIR/DerivedData" \
   CODE_SIGN_IDENTITY="-" CODE_SIGNING_ALLOWED=YES build; then
   APP_PATH="$PROJECT_DIR/DerivedData/Build/Products/Debug/OpenAnyway.app"

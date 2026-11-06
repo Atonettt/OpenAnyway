@@ -3,16 +3,16 @@
   <BuildAction parallelizeBuildables="YES" buildImplicitDependencies="YES">
     <BuildActionEntries>
       <BuildActionEntry buildForTesting="YES" buildForRunning="YES" buildForProfiling="YES" buildForArchiving="YES" buildForAnalyzing="YES">
-        <BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="F762108CA727F0BCD961FC74" BuildableName="OpenAnyway.app" BlueprintName="MacAppDoctor" ReferencedContainer="container:MacAppDoctor.xcodeproj"/>
+        <BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="F762108CA727F0BCD961FC74" BuildableName="OpenAnyway.app" BlueprintName="OpenAnyway" ReferencedContainer="container:OpenAnyway.xcodeproj"/>
       </BuildActionEntry>
     </BuildActionEntries>
   </BuildAction>
   <TestAction buildConfiguration="Debug" selectedDebuggerIdentifier="Xcode.DebuggerFoundation.Debugger.LLDB" selectedLauncherIdentifier="Xcode.IDEFoundation.Launcher.LLDB" shouldUseLaunchSchemeArgsEnv="YES"/>
   <LaunchAction buildConfiguration="Debug" selectedDebuggerIdentifier="Xcode.DebuggerFoundation.Debugger.LLDB" selectedLauncherIdentifier="Xcode.IDEFoundation.Launcher.LLDB" launchStyle="0" useCustomWorkingDirectory="NO" ignoresPersistentStateOnLaunch="NO" debugDocumentVersioning="YES" debugServiceExtension="internal" allowLocationSimulation="YES">
-    <BuildableProductRunnable runnableDebuggingMode="0"><BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="F762108CA727F0BCD961FC74" BuildableName="OpenAnyway.app" BlueprintName="MacAppDoctor" ReferencedContainer="container:MacAppDoctor.xcodeproj"/></BuildableProductRunnable>
+    <BuildableProductRunnable runnableDebuggingMode="0"><BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="F762108CA727F0BCD961FC74" BuildableName="OpenAnyway.app" BlueprintName="OpenAnyway" ReferencedContainer="container:OpenAnyway.xcodeproj"/></BuildableProductRunnable>
   </LaunchAction>
   <ProfileAction buildConfiguration="Release" shouldUseLaunchSchemeArgsEnv="YES" savedToolIdentifier="" useCustomWorkingDirectory="NO" debugDocumentVersioning="YES">
-    <BuildableProductRunnable runnableDebuggingMode="0"><BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="F762108CA727F0BCD961FC74" BuildableName="OpenAnyway.app" BlueprintName="MacAppDoctor" ReferencedContainer="container:MacAppDoctor.xcodeproj"/></BuildableProductRunnable>
+    <BuildableProductRunnable runnableDebuggingMode="0"><BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="F762108CA727F0BCD961FC74" BuildableName="OpenAnyway.app" BlueprintName="OpenAnyway" ReferencedContainer="container:OpenAnyway.xcodeproj"/></BuildableProductRunnable>
   </ProfileAction>
   <AnalyzeAction buildConfiguration="Debug"/>
   <ArchiveAction buildConfiguration="Release" revealArchiveInOrganizer="YES"/>

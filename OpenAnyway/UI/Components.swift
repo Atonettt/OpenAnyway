@@ -107,8 +107,8 @@ enum FileChooser {
     @MainActor
     static func select(onSelected: @escaping (URL) -> Void) {
         let panel = NSOpenPanel()
-        panel.title = "选择打不开的应用"
-        panel.message = "也可以选择安装包（DMG、PKG）、插件或命令行工具。"
+        panel.title = L("选择打不开的应用", "Choose the app that won't open")
+        panel.message = L("也可以选择安装包（DMG、PKG）、插件或命令行工具。", "You can also choose installers (DMG, PKG), plug-ins or command-line tools.")
         panel.canChooseFiles = true
         panel.canChooseDirectories = true
         panel.allowsMultipleSelection = false

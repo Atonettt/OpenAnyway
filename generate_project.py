@@ -1,8 +1,8 @@
 from pathlib import Path
 import hashlib, json
 root=Path(__file__).resolve().parent
-src=root/'MacAppDoctor'
-project=root/'MacAppDoctor.xcodeproj'/'project.pbxproj'
+src=root/'OpenAnyway'
+project=root/'OpenAnyway.xcodeproj'/'project.pbxproj'
 files=sorted(p.relative_to(src).as_posix() for p in src.rglob('*.swift'))
 
 def key(string): return hashlib.sha1(string.encode()).hexdigest()[:24].upper()
@@ -51,14 +51,14 @@ add('/* Begin PBXFrameworksBuildPhase section */')
 add(f'\t\t{frameworks_phase} /* Frameworks */ = {{isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; }};')
 add('/* End PBXFrameworksBuildPhase section */\n')
 add('/* Begin PBXGroup section */')
-add(f'\t\t{root_group} = {{isa = PBXGroup; children = ({source_group} /* MacAppDoctor */, {products_group} /* Products */, ); sourceTree = "<group>"; }};')
-add(f'\t\t{source_group} /* MacAppDoctor */ = {{isa = PBXGroup; children = (')
+add(f'\t\t{root_group} = {{isa = PBXGroup; children = ({source_group} /* OpenAnyway */, {products_group} /* Products */, ); sourceTree = "<group>"; }};')
+add(f'\t\t{source_group} /* OpenAnyway */ = {{isa = PBXGroup; children = (')
 for f in files:
     if '/' not in f: add(f'\t\t\t{key("FILE_"+f)} /* {Path(f).name} */,')
 add(f'\t\t\t{core_group} /* Core */,')
 add(f'\t\t\t{ui_group} /* UI */,')
 add(f'\t\t\t{assets_ref} /* Assets.xcassets */,')
-add('\t\t); path = MacAppDoctor; sourceTree = "<group>"; };')
+add('\t\t); path = OpenAnyway; sourceTree = "<group>"; };')
 for folder, grp in [('Core',core_group),('UI',ui_group)]:
     add(f'\t\t{grp} /* {folder} */ = {{isa = PBXGroup; children = (')
     for f in files:
@@ -67,12 +67,12 @@ for folder, grp in [('Core',core_group),('UI',ui_group)]:
 add(f'\t\t{products_group} /* Products */ = {{isa = PBXGroup; children = ({app_ref} /* OpenAnyway.app */, ); name = Products; sourceTree = "<group>"; }};')
 add('/* End PBXGroup section */\n')
 add('/* Begin PBXNativeTarget section */')
-add(f'\t\t{target_id} /* MacAppDoctor */ = {{')
+add(f'\t\t{target_id} /* OpenAnyway */ = {{')
 add('\t\t\tisa = PBXNativeTarget;')
-add(f'\t\t\tbuildConfigurationList = {target_config_list} /* Build configuration list for PBXNativeTarget "MacAppDoctor" */;')
+add(f'\t\t\tbuildConfigurationList = {target_config_list} /* Build configuration list for PBXNativeTarget "OpenAnyway" */;')
 add(f'\t\t\tbuildPhases = ({sources_phase} /* Sources */, {frameworks_phase} /* Frameworks */, {resources_phase} /* Resources */, );')
-add('\t\t\tbuildRules = (); dependencies = (); name = MacAppDoctor;')
-add(f'\t\t\tproductName = MacAppDoctor; productReference = {app_ref} /* OpenAnyway.app */; productType = "com.apple.product-type.application";')
+add('\t\t\tbuildRules = (); dependencies = (); name = OpenAnyway;')
+add(f'\t\t\tproductName = OpenAnyway; productReference = {app_ref} /* OpenAnyway.app */; productType = "com.apple.product-type.application";')
 add('\t\t};')
 add('/* End PBXNativeTarget section */\n')
 add('/* Begin PBXProject section */')
@@ -83,11 +83,11 @@ add('\t\t\t\tBuildIndependentTargetsInParallel = 1;')
 add('\t\t\t\tLastUpgradeCheck = 1600;')
 add(f'\t\t\t\tTargetAttributes = {{{target_id} = {{CreatedOnToolsVersion = 16.0; }}; }};')
 add('\t\t\t};')
-add(f'\t\t\tbuildConfigurationList = {project_config_list} /* Build configuration list for PBXProject "MacAppDoctor" */;')
+add(f'\t\t\tbuildConfigurationList = {project_config_list} /* Build configuration list for PBXProject "OpenAnyway" */;')
 add('\t\t\tcompatibilityVersion = "Xcode 14.0"; developmentRegion = zh-Hans;')
 add('\t\t\thasScannedForEncodings = 0; knownRegions = (zh-Hans, en, Base, );')
 add(f'\t\t\tmainGroup = {root_group}; productRefGroup = {products_group}; projectDirPath = ""; projectRoot = "";')
-add(f'\t\t\ttargets = ({target_id} /* MacAppDoctor */, );')
+add(f'\t\t\ttargets = ({target_id} /* OpenAnyway */, );')
 add('\t\t};')
 add('/* End PBXProject section */\n')
 add('/* Begin PBXResourcesBuildPhase section */')
@@ -123,19 +123,19 @@ for name, ident, config, is_target in [
           'COMBINE_HIDPI_IMAGES':'YES', 'ENABLE_HARDENED_RUNTIME':'NO',
           'GENERATE_INFOPLIST_FILE':'YES', 'INFOPLIST_KEY_CFBundleDisplayName':'"OpenAnyway"', 'INFOPLIST_KEY_CFBundleName':'"OpenAnyway"',
           'INFOPLIST_KEY_LSApplicationCategoryType':'"public.app-category.utilities"',
-          'MACOSX_DEPLOYMENT_TARGET':'13.0', 'PRODUCT_BUNDLE_IDENTIFIER':'"com.example.openanyway"',
+          'MACOSX_DEPLOYMENT_TARGET':'13.0', 'PRODUCT_BUNDLE_IDENTIFIER':'"io.github.atonettt.openanyway"',
           'PRODUCT_NAME':'"OpenAnyway"', 'SDKROOT':'macosx',
           'SUPPORTED_PLATFORMS':'macosx', 'SWIFT_VERSION':'5.0',
           'ONLY_ACTIVE_ARCH':'YES' if config=='debug' else 'NO',
-          'SWIFT_EMIT_LOC_STRINGS':'YES', 'MARKETING_VERSION':'2.0.0', 'CURRENT_PROJECT_VERSION':'1', 'INFOPLIST_KEY_NSHumanReadableCopyright':'"© 2026 Atonettt"',
+          'SWIFT_EMIT_LOC_STRINGS':'YES', 'MARKETING_VERSION':'2.1.0', 'CURRENT_PROJECT_VERSION':'1', 'INFOPLIST_KEY_NSHumanReadableCopyright':'"© 2026 Atonettt"',
         }
     add(f'\t\t{ident} /* {name} */ = {{isa = XCBuildConfiguration; buildSettings = {{')
     add(settings_lines(s))
     add(f'\t\t\t}}; name = {name}; }};')
 add('/* End XCBuildConfiguration section */\n')
 add('/* Begin XCConfigurationList section */')
-add(f'\t\t{project_config_list} /* Build configuration list for PBXProject "MacAppDoctor" */ = {{isa = XCConfigurationList; buildConfigurations = ({project_debug} /* Debug */, {project_release} /* Release */, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; }};')
-add(f'\t\t{target_config_list} /* Build configuration list for PBXNativeTarget "MacAppDoctor" */ = {{isa = XCConfigurationList; buildConfigurations = ({target_debug} /* Debug */, {target_release} /* Release */, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; }};')
+add(f'\t\t{project_config_list} /* Build configuration list for PBXProject "OpenAnyway" */ = {{isa = XCConfigurationList; buildConfigurations = ({project_debug} /* Debug */, {project_release} /* Release */, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; }};')
+add(f'\t\t{target_config_list} /* Build configuration list for PBXNativeTarget "OpenAnyway" */ = {{isa = XCConfigurationList; buildConfigurations = ({target_debug} /* Debug */, {target_release} /* Release */, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; }};')
 add('/* End XCConfigurationList section */')
 add('\t};')
 add(f'\trootObject = {project_id} /* Project object */;')

@@ -28,10 +28,10 @@ struct MainView: View {
         .sheet(isPresented: $state.showOpenAnywayGuide) {
             OpenAnywayGuide().environmentObject(state)
         }
-        .confirmationDialog("确定要修复吗？", isPresented: $state.showRepairConfirmation,
+        .confirmationDialog(L("确定要修复吗？", "Fix this app?"), isPresented: $state.showRepairConfirmation,
                             titleVisibility: .visible) {
-            Button("修复", role: state.selectedRisk == .high ? .destructive : nil) { state.repair() }
-            Button("取消", role: .cancel) { }
+            Button(L("修复", "Fix"), role: state.selectedRisk == .high ? .destructive : nil) { state.repair() }
+            Button(L("取消", "Cancel"), role: .cancel) { }
         } message: {
             Text(confirmationText)
         }
@@ -46,11 +46,11 @@ struct MainView: View {
                 .frame(width: 34, height: 34)
             VStack(alignment: .leading, spacing: 1) {
                 Text("OpenAnyway").font(.headline)
-                Text("让打不开的应用重新打开").font(.caption).foregroundStyle(.secondary)
+                Text(L("让打不开的应用重新打开", "Open apps that macOS won't open")).font(.caption).foregroundStyle(.secondary)
             }
             Spacer()
             if state.report != nil && !state.isBusy {
-                Button { state.reset() } label: { Label("换一个", systemImage: "arrow.uturn.left") }
+                Button { state.reset() } label: { Label(L("换一个", "Choose Another"), systemImage: "arrow.uturn.left") }
                     .buttonStyle(.borderless)
             }
         }
@@ -65,13 +65,13 @@ struct MainView: View {
             Image(systemName: "arrow.down.app")
                 .font(.system(size: 46, weight: .light))
                 .foregroundStyle(.blue)
-            Text("把打不开的应用拖到这里").font(.title3.weight(.semibold))
-            Text("比如提示“已损坏，无法打开”或“无法验证开发者”的应用")
+            Text(L("把打不开的应用拖到这里", "Drop an app that won't open here")).font(.title3.weight(.semibold))
+            Text(L("比如提示“已损坏，无法打开”或“无法验证开发者”的应用", "For example, apps that are “damaged and can't be opened” or from an “unidentified developer”"))
                 .font(.callout).foregroundStyle(.secondary)
             Button {
                 FileChooser.select { state.inspect($0) }
             } label: {
-                Text("选择应用…").padding(.horizontal, 8)
+                Text(L("选择应用…", "Choose App…")).padding(.horizontal, 8)
             }
             .controlSize(.large)
             .padding(.top, 4)
@@ -87,7 +87,7 @@ struct MainView: View {
     private var checking: some View {
         VStack(spacing: 12) {
             ProgressView()
-            Text("正在检查…").foregroundStyle(.secondary)
+            Text(L("正在检查…", "Checking…")).foregroundStyle(.secondary)
         }
     }
 
@@ -141,14 +141,14 @@ struct MainView: View {
                 Button {
                     state.showRepairConfirmation = true
                 } label: {
-                    busyLabel(state.isRepairing, busy: "正在修复…", idle: "一键修复", symbol: "wand.and.stars")
+                    busyLabel(state.isRepairing, busy: L("正在修复…", "Fixing…"), idle: L("一键修复", "Fix"), symbol: "wand.and.stars")
                 }
                 .buttonStyle(.borderedProminent)
                 .disabled(!state.canRepair)
             } else if diagnosis.suggestOpenAnyway {
                 approveButton(prominent: true)
             } else if report.kind == .app {
-                Button { state.openItem() } label: { Label("打开应用", systemImage: "play.fill").padding(.horizontal, 6) }
+                Button { state.openItem() } label: { Label(L("打开应用", "Open App"), systemImage: "play.fill").padding(.horizontal, 6) }
                     .buttonStyle(.borderedProminent)
             }
 
@@ -156,7 +156,7 @@ struct MainView: View {
                 approveButton(prominent: false)
             }
             if report.kind == .app && (state.hasRecommendedFix || diagnosis.suggestOpenAnyway) {
-                Button("打开应用") { state.openItem() }.disabled(state.isBusy)
+                Button(L("打开应用", "Open App")) { state.openItem() }.disabled(state.isBusy)
             }
         }
         .controlSize(.large)
@@ -166,11 +166,11 @@ struct MainView: View {
         Button {
             state.autoApprove()
         } label: {
-            busyLabel(state.autoApproveRunning, busy: "正在放行…", idle: "一键放行", symbol: "lock.open")
+            busyLabel(state.autoApproveRunning, busy: L("正在放行…", "Approving…"), idle: L("一键放行", "Open Anyway"), symbol: "lock.open")
         }
         .modifier(ProminentIf(prominent))
         .disabled(state.isBusy)
-        .help("自动点击系统设置里的“仍要打开”，你只需要用触控 ID 或密码确认。")
+        .help(L("自动点击系统设置里的“仍要打开”，你只需要用触控 ID 或密码确认。", "Clicks “Open Anyway” in System Settings for you. You only confirm with Touch ID or your password."))
     }
 
     @ViewBuilder
@@ -201,17 +201,17 @@ struct MainView: View {
         DisclosureGroup(isExpanded: $showAdvanced) {
             VStack(alignment: .leading, spacing: 12) {
                 if !diagnosis.suggestions.isEmpty {
-                    Text("修复时执行").font(.caption.weight(.semibold)).foregroundStyle(.secondary)
+                    Text(L("修复时执行", "Fixes to apply")).font(.caption.weight(.semibold)).foregroundStyle(.secondary)
                     ForEach(diagnosis.suggestions) { fixRow($0) }
                     if state.selectedFixes.contains(.adhocResign) {
-                        Toggle("重新签名前先备份原应用", isOn: $state.backupBeforeResign)
+                        Toggle(L("重新签名前先备份原应用", "Back up the original app before re-signing"), isOn: $state.backupBeforeResign)
                             .toggleStyle(.checkbox).font(.callout)
                     }
                 }
                 if diagnosis.suggestOpenAnyway {
-                    Button("手动放行步骤…") { state.presentOpenAnywayGuide() }.buttonStyle(.link)
+                    Button(L("手动放行步骤…", "Manual Open Anyway steps…")) { state.presentOpenAnywayGuide() }.buttonStyle(.link)
                 }
-                Text("详细信息").font(.caption.weight(.semibold)).foregroundStyle(.secondary).padding(.top, 4)
+                Text(L("详细信息", "Details")).font(.caption.weight(.semibold)).foregroundStyle(.secondary).padding(.top, 4)
                 VStack(alignment: .leading, spacing: 0) {
                     ForEach(report.checks) { item in
                         if item.id != report.checks.first?.id { Divider() }
@@ -219,15 +219,15 @@ struct MainView: View {
                     }
                 }
                 HStack(spacing: 14) {
-                    Button("在 Finder 中显示") { state.showInFinder() }
-                    Button("重新检查") { state.recheck() }.disabled(state.isBusy)
-                    Button("备份文件夹") { AppState.openBackupFolder() }
+                    Button(L("在 Finder 中显示", "Show in Finder")) { state.showInFinder() }
+                    Button(L("重新检查", "Check Again")) { state.recheck() }.disabled(state.isBusy)
+                    Button(L("备份文件夹", "Backup Folder")) { AppState.openBackupFolder() }
                 }
                 .buttonStyle(.link).font(.callout)
             }
             .padding(.top, 10)
         } label: {
-            Text("高级选项").font(.callout).foregroundStyle(.secondary)
+            Text(L("高级选项", "Advanced")).font(.callout).foregroundStyle(.secondary)
         }
     }
 
@@ -255,9 +255,9 @@ struct MainView: View {
     private var confirmationText: String {
         let lines = state.selectedSuggestions.sorted { $0.action.order < $1.action.order }
             .map { "• " + $0.action.title }.joined(separator: "\n")
-        var text = lines + "\n\n只会修改这一个应用。需要时会请你输入密码。"
+        var text = lines + L("\n\n只会修改这一个应用。需要时会请你输入密码。", "\n\nOnly this app is changed. You'll be asked for your password if needed.")
         if state.selectedFixes.contains(.adhocResign), let kind = state.report?.signatureKind, kind.isCertificateSigned {
-            text += "\n\n⚠️ 这是厂商正式签名的应用。重新签名后还需要在系统设置里放行，部分特殊功能可能失效。"
+            text += L("\n\n⚠️ 这是厂商正式签名的应用。重新签名后还需要在系统设置里放行，部分特殊功能可能失效。", "\n\n⚠️ This app is signed by its developer. After re-signing it still has to be approved in System Settings, and some special features may stop working.")
         }
         return text
     }

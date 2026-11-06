@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="MacAppDoctor/Assets.xcassets/AppIcon.appiconset/icon_256.png" width="128" alt="OpenAnyway icon">
+<img src="OpenAnyway/Assets.xcassets/AppIcon.appiconset/icon_256.png" width="128" alt="OpenAnyway icon">
 
 # OpenAnyway
 
@@ -18,9 +18,9 @@ English | [简体中文](README.zh-CN.md)
 </div>
 
 <p align="center">
-  <img src="docs/screenshot-empty.png" width="45%" alt="Drop an app">
+  <img src="docs/screenshot-empty-en.png" width="45%" alt="Drop an app">
   &nbsp;
-  <img src="docs/screenshot-result.png" width="45%" alt="One-click fix">
+  <img src="docs/screenshot-result-en.png" width="45%" alt="One-click fix">
 </p>
 
 ---
@@ -40,9 +40,8 @@ The usual fix is a handful of Terminal commands copied from a forum. **OpenAnywa
 - **One-click “Open Anyway”** — for apps macOS still blocks, OpenAnyway opens *System Settings → Privacy & Security*, finds the **Open Anyway** button for that app and clicks it. You only confirm with Touch ID or your password.
 - **Safe by default** — only touches the one app you choose, backs up before re-signing, never disables Gatekeeper or SIP, never clicks “Move to Trash”.
 - **Works with more than apps** — DMG and PKG installers, plug-ins (VST3, AU, …) and command-line tools.
+- **English and Simplified Chinese** — the interface follows your system language.
 - Native SwiftUI app, ~1 MB download, runs fully offline. Universal binary for Apple Silicon and Intel.
-
-> The app’s interface is currently in Simplified Chinese.
 
 ## Installation
 
@@ -59,13 +58,13 @@ The usual fix is a handful of Terminal commands copied from a forum. **OpenAnywa
 
 ## Usage
 
-1. Open OpenAnyway and **drag in the app** that won’t open (or click **选择应用…** to pick it).
-2. Read the one-line result, then click **一键修复 (Fix)**.
-3. If macOS still blocks the app, click **一键放行 (Open Anyway)**.
+1. Open OpenAnyway and **drag in the app** that won’t open (or click **Choose App…**).
+2. Read the one-line result, then click **Fix**.
+3. If macOS still blocks the app, click **Open Anyway**.
    The first time, macOS asks you to allow OpenAnyway under **Privacy & Security → Accessibility** — this lets it click the button in System Settings for you.
 4. Confirm with Touch ID or your password. The app opens.
 
-Advanced options (individual fixes, backup, raw check output, manual steps) are folded under **高级选项**.
+Advanced options (individual fixes, backup, raw check output, manual steps) are folded under **Advanced**.
 
 ## What it fixes
 
@@ -89,7 +88,7 @@ OpenAnyway does exactly what the popular Terminal commands do (`xattr`, `codesig
 <details>
 <summary><b>Why does OpenAnyway need Accessibility permission?</b></summary>
 
-Only for **一键放行 (Open Anyway)**: it needs to click the “Open Anyway” button in System Settings. It checks that the button belongs to the app you selected, never clicks “Move to Trash”, and never sees or types your password. Everything else works without this permission.
+Only for the **Open Anyway** button: it needs to click the “Open Anyway” button in System Settings. It checks that the button belongs to the app you selected, never clicks “Move to Trash”, and never sees or types your password. Everything else works without this permission.
 </details>
 
 <details>
@@ -111,29 +110,30 @@ Requires Xcode 15 or later.
 ```bash
 git clone https://github.com/Atonettt/OpenAnyway.git
 cd OpenAnyway
-xcodebuild -project MacAppDoctor.xcodeproj -scheme MacAppDoctor \
+xcodebuild -project OpenAnyway.xcodeproj -scheme OpenAnyway \
   -configuration Release -derivedDataPath ./DerivedData build
 open DerivedData/Build/Products/Release/OpenAnyway.app
 ```
 
-Or open `MacAppDoctor.xcodeproj` in Xcode and press ⌘R.
+Or open `OpenAnyway.xcodeproj` in Xcode and press ⌘R.
 
 Run the core tests:
 
 ```bash
-swiftc MacAppDoctor/Core/*.swift Tests/CoreSmokeTests.swift -o /tmp/openanyway-tests && /tmp/openanyway-tests
+swiftc OpenAnyway/Core/*.swift Tests/CoreSmokeTests.swift -o /tmp/openanyway-tests && /tmp/openanyway-tests
 ```
 
 <details>
 <summary>Project structure</summary>
 
 ```text
-MacAppDoctor/
+OpenAnyway/
   Core/                       Logic, no UI (unit-tested)
     FileInspector.swift       Read-only checks: signature, quarantine, Gatekeeper, architecture…
     DiagnosisEngine.swift     Works out the cause and recommended fixes
     RepairService.swift       Runs the fixes, admin fallback, backup, re-check
     ExtendedAttributes.swift  Quarantine / extended-attribute access
+    Localization.swift        English / Chinese text
     CommandRunner.swift       Runs system tools without a shell
   UI/
     MainView.swift            The single main window

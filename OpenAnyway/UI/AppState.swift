@@ -95,7 +95,7 @@ final class AppState: ObservableObject {
                 self.lastRepairSucceeded = outcome.succeeded
                 self.repairMessageLevel = outcome.succeeded ? (outcome.needsOpenAnyway ? .warning : .passed) : .failed
                 self.repairMessage = outcome.succeeded
-                    ? (outcome.needsOpenAnyway ? "修复完成，还需要在系统设置里放行一次。" : "修复完成，可以打开了。")
+                    ? (outcome.needsOpenAnyway ? L("修复完成，还需要在系统设置里放行一次。", "Fixed. It still needs to be approved once in System Settings.") : L("修复完成，可以打开了。", "Fixed. You can open it now."))
                     : outcome.message
             }
         }
@@ -106,7 +106,7 @@ final class AppState: ObservableObject {
         guard let url = currentURL, !autoApproveRunning else { return }
         autoApproveRunning = true
         autoApproveResult = nil
-        autoApproveStatus = "准备中…"
+        autoApproveStatus = L("准备中…", "Getting ready…")
         let automator = OpenAnywayAutomator(appURL: url) { [weak self] text in
             self?.autoApproveStatus = text
         }
@@ -116,19 +116,19 @@ final class AppState: ObservableObject {
             switch outcome {
             case .launched:
                 autoApproveResult = .passed
-                autoApproveStatus = "已放行并打开，以后可以直接双击打开。"
+                autoApproveStatus = L("已放行并打开，以后可以直接双击打开。", "Approved and opened. From now on you can just double-click it.")
             case .needsAccessibility:
                 autoApproveResult = .warning
-                autoApproveStatus = "需要“辅助功能”权限：在 系统设置 → 隐私与安全性 → 辅助功能 中允许 OpenAnyway。如果开关已经打开，请先用“−”删掉 OpenAnyway 再重新添加，然后再点一次。"
+                autoApproveStatus = L("需要“辅助功能”权限：在 系统设置 → 隐私与安全性 → 辅助功能 中允许 OpenAnyway。如果开关已经打开，请先用“−”删掉 OpenAnyway 再重新添加，然后再点一次。", "Accessibility permission needed: allow OpenAnyway in System Settings → Privacy & Security → Accessibility. If it's already on, remove OpenAnyway with “−”, add it again, then click once more.")
             case .buttonNotFound:
                 autoApproveResult = .warning
-                autoApproveStatus = "没有找到“仍要打开”按钮。它可能已经放行了，试试直接打开；或者在“高级选项”里按手动步骤操作。"
+                autoApproveStatus = L("没有找到“仍要打开”按钮。它可能已经放行了，试试直接打开；或者在“高级选项”里按手动步骤操作。", "Couldn't find the “Open Anyway” button. The app may already be approved — try opening it, or follow the manual steps under Advanced.")
             case .notApproved:
                 autoApproveResult = .warning
-                autoApproveStatus = "没有完成放行（可能取消了密码或触控 ID）。可以再点一次。"
+                autoApproveStatus = L("没有完成放行（可能取消了密码或触控 ID）。可以再点一次。", "Approval wasn't completed (the password or Touch ID prompt may have been cancelled). Click again to retry.")
             case .foundButton:
                 autoApproveResult = .information
-                autoApproveStatus = "测试模式：已找到按钮，未点击。"
+                autoApproveStatus = L("测试模式：已找到按钮，未点击。", "Test mode: button found, not clicked.")
             }
         }
     }
