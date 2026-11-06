@@ -1,114 +1,145 @@
-# OpenAnyway 2.0
+<div align="center">
 
-一个用 **Swift + SwiftUI** 编写的原生 macOS 应用，专门解决 **“XXX 已损坏，无法打开。你应该将它移到废纸篓”**、“无法验证开发者”、“Apple 无法检查其是否包含恶意软件” 等打不开软件的问题。拖入应用，自动找出打不开的原因，一键修复；需要在系统设置里点“仍要打开”时，也能自动帮你点。
+<img src="MacAppDoctor/Assets.xcassets/AppIcon.appiconset/icon_256.png" width="128" alt="OpenAnyway icon">
 
-## 1. 功能
+# OpenAnyway
 
-**自动检查（只读）**
+**Fix “App is damaged and can’t be opened” on macOS — in one click.**
 
-- 支持任意文件：`.app`、`.dmg`、`.pkg/.mpkg`、插件（`.vst3/.component/.plugin/.bundle/.framework/.prefPane` 等）、命令行工具、脚本。
-- 扫描**包内全部文件**的 `com.apple.quarantine` 隔离标记，显示下载来源（浏览器名称与下载网址）。
-- 签名完整性与签名类型（未签名 / ad-hoc / Developer ID / App Store / Apple），读取 Entitlements。
-- Gatekeeper (`spctl`)、公证票据 (`stapler`)、DMG 校验 (`hdiutil verify`)、PKG 签名、SHA-256。
-- 处理器架构（是否需要 Rosetta、是否根本不兼容）、最低系统版本、是否位于只读 DMG 中、是否需要管理员权限。
+English | [简体中文](README.zh-CN.md)
 
-**检查结果 → 推荐修复**
+[![Release](https://img.shields.io/github/v/release/Atonettt/OpenAnyway?label=release)](https://github.com/Atonettt/OpenAnyway/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/Atonettt/OpenAnyway/total)](https://github.com/Atonettt/OpenAnyway/releases)
+![macOS](https://img.shields.io/badge/macOS-13%2B-blue)
+![Universal](https://img.shields.io/badge/Apple%20Silicon%20%2B%20Intel-universal-lightgrey)
 
-| 情况 | 推荐操作 | 风险 |
-|---|---|---|
-| 签名有效，只是未公证 / 被 Gatekeeper 拒绝 | 移除隔离标记（递归） | 低~中 |
-| 未签名或 ad-hoc 签名不完整（开源软件常见） | 移除隔离标记 + ad-hoc 重签名 | 中 |
-| 开发者签名已损坏（文件被改动/下载不完整） | 建议重新下载；可选 ad-hoc 重签名 | 高 |
-| 应用在只读 DMG 中 | 先复制到 `/Applications` | 低 |
-| DMG/PKG/工具被隔离 | 移除隔离标记（核对 SHA-256 后为低风险） | 低~中 |
-| DMG 校验失败或哈希不一致 / 架构不兼容 | 不提供修复，只给建议 | — |
+### [⬇️ Download OpenAnyway](https://github.com/Atonettt/OpenAnyway/releases/latest/download/OpenAnyway.zip)
 
-- 需要权限时自动使用 macOS 标准管理员密码框（`osascript … with administrator privileges`，参数全部 `quoted form` 转义）。
-- 重签名前默认用 APFS 克隆备份到 `~/Library/Application Support/MacAppDoctor/Backups/`。
-- 应用声明了 Entitlements（如 VMware Fusion 的虚拟化权限）时，**不会**预选重签名，因为 ad-hoc 重签名会让这些功能失效。
-- 修复后自动复查，并可一键“打开试试”；也提供“隐私与安全性 → 仍要打开”的系统入口。
+</div>
 
-**一键放行（仍要打开）**
+<p align="center">
+  <img src="docs/screenshot-empty.png" width="45%" alt="Drop an app">
+  &nbsp;
+  <img src="docs/screenshot-result.png" width="45%" alt="One-click fix">
+</p>
 
-- 对原本正式签名、被重签名过的应用，macOS 只能在“系统设置 → 隐私与安全性”里手动放行。
-- 一键放行会自动打开应用触发拦截、关掉提示、找到这个应用对应的“仍要打开”按钮并点击，你只需用触控 ID 或密码确认。
-- 需要在“系统设置 → 隐私与安全性 → 辅助功能”中允许 OpenAnyway。不会点击“移到废纸篓”，也不接触密码。
+---
 
-**不会**：全局关闭 Gatekeeper（`spctl --master-disable`）、关闭 SIP、修改系统安全数据库、自动运行未知程序。
+macOS often refuses to open apps downloaded from the internet with messages like:
 
-## 2. 如何在 Mac 上打开和运行
+> “XXX” is damaged and can’t be opened. You should move it to the Trash.
+>
+> “XXX” can’t be opened because Apple cannot check it for malicious software.
 
-**快捷方式**：已安装并启动过 Xcode 的用户，可尝试双击 `一键构建并运行.command`，它会在本机编译并打开 APP（并非预编译应用）。如果 macOS 拦截 `.command` 或编译报错，请使用下面的 Xcode 方式。
+The usual fix is a handful of Terminal commands copied from a forum. **OpenAnyway** does it for you: drag the app in, it figures out *why* macOS blocks it, and fixes exactly that.
 
-1. 在 Mac 上解压本 ZIP。
-2. 双击 `MacAppDoctor.xcodeproj`，使用 **Xcode 15 或更新版本**打开（推荐较新的稳定版）。
-3. 在 Xcode 顶部 Scheme 中选择 `MacAppDoctor`，运行目标选择 `My Mac`。
-4. 菜单栏 `Product → Run`，或者按 `⌘R`。
-5. 首次启动后拖入需要检测的文件。无需安装 Python，也无需手工运行终端命令。
+## Features
 
-如需生成独立的本机调试 `.app`：在 Xcode 中 Build 后打开菜单 `Product → Show Build Folder in Finder`，在 `Products/Debug/` 找到 `OpenAnyway.app`，可复制到 `/Applications`（若使用 Finder 直接运行，macOS 可能要求手动批准本地签名）。
+- **Finds the real cause** — download quarantine flags, broken or missing code signature, unnotarized apps, apps running from a read-only DMG, unsupported CPU architecture, macOS version too old.
+- **One-click fix** — removes quarantine flags from every file inside the app, re-signs it locally when needed, copies it out of a read-only DMG, and asks for your password only when required.
+- **One-click “Open Anyway”** — for apps macOS still blocks, OpenAnyway opens *System Settings → Privacy & Security*, finds the **Open Anyway** button for that app and clicks it. You only confirm with Touch ID or your password.
+- **Safe by default** — only touches the one app you choose, backs up before re-signing, never disables Gatekeeper or SIP, never clicks “Move to Trash”.
+- **Works with more than apps** — DMG and PKG installers, plug-ins (VST3, AU, …) and command-line tools.
+- Native SwiftUI app, ~1 MB download, runs fully offline. Universal binary for Apple Silicon and Intel.
 
-如需通用架构 Release：
+> The app’s interface is currently in Simplified Chinese.
+
+## Installation
+
+1. [Download `OpenAnyway.zip`](https://github.com/Atonettt/OpenAnyway/releases/latest/download/OpenAnyway.zip) and unzip it.
+2. Move **OpenAnyway.app** to your **Applications** folder.
+3. **First launch:** OpenAnyway itself is not notarized by Apple, so macOS will block it the same way. Allow it once using either method:
+   - Double-click it, click **Cancel**, then go to **System Settings → Privacy & Security** and click **Open Anyway**; or
+   - run this in Terminal:
+     ```bash
+     xattr -dr com.apple.quarantine /Applications/OpenAnyway.app
+     ```
+
+**Requirements:** macOS 13 Ventura or later.
+
+## Usage
+
+1. Open OpenAnyway and **drag in the app** that won’t open (or click **选择应用…** to pick it).
+2. Read the one-line result, then click **一键修复 (Fix)**.
+3. If macOS still blocks the app, click **一键放行 (Open Anyway)**.
+   The first time, macOS asks you to allow OpenAnyway under **Privacy & Security → Accessibility** — this lets it click the button in System Settings for you.
+4. Confirm with Touch ID or your password. The app opens.
+
+Advanced options (individual fixes, backup, raw check output, manual steps) are folded under **高级选项**.
+
+## What it fixes
+
+| Situation | What OpenAnyway does |
+|---|---|
+| Signed app, just not notarized | Removes the quarantine flag |
+| Unsigned / ad-hoc signed app (common for open-source apps) | Removes the quarantine flag + re-signs locally |
+| App inside a mounted DMG | Copies it to `/Applications` first |
+| Developer signature broken | Recommends re-downloading; re-sign + Open Anyway available as a last resort |
+| DMG / PKG / plug-in / CLI tool blocked | Removes the quarantine flag |
+| Corrupted DMG, wrong CPU architecture, macOS too old | No fix offered — tells you what to do instead |
+
+## FAQ
+
+<details>
+<summary><b>Is this safe?</b></summary>
+
+OpenAnyway does exactly what the popular Terminal commands do (`xattr`, `codesign`), but only on the app you choose and only after showing you what it will run. It never runs `spctl --master-disable`, never turns off Gatekeeper or SIP, and never touches system security databases. Removing the quarantine flag means macOS will no longer warn you about that app — only do this for software from a source you trust.
+</details>
+
+<details>
+<summary><b>Why does OpenAnyway need Accessibility permission?</b></summary>
+
+Only for **一键放行 (Open Anyway)**: it needs to click the “Open Anyway” button in System Settings. It checks that the button belongs to the app you selected, never clicks “Move to Trash”, and never sees or types your password. Everything else works without this permission.
+</details>
+
+<details>
+<summary><b>macOS keeps asking for Accessibility permission again after an update.</b></summary>
+
+OpenAnyway is signed locally (ad-hoc), so macOS treats each new version as a different app. In **System Settings → Privacy & Security → Accessibility**, remove OpenAnyway with “−”, add it again with “+”, and turn it on.
+</details>
+
+<details>
+<summary><b>The app opens, but some features don’t work.</b></summary>
+
+If an app originally signed by its developer had to be re-signed, special permissions Apple granted to that developer (virtualization, system extensions, iCloud, …) are lost. Download a fresh copy from the official website and install it directly from the DMG — don’t extract it with third-party archivers or sync it through cloud drives, which can break the signature.
+</details>
+
+## Build from source
+
+Requires Xcode 15 or later.
 
 ```bash
+git clone https://github.com/Atonettt/OpenAnyway.git
+cd OpenAnyway
 xcodebuild -project MacAppDoctor.xcodeproj -scheme MacAppDoctor \
   -configuration Release -derivedDataPath ./DerivedData build
+open DerivedData/Build/Products/Release/OpenAnyway.app
 ```
 
-生成的包一般位于 `DerivedData/Build/Products/Release/OpenAnyway.app`。如要**向其他 Mac 分发**，需要使用自己的 Apple Developer ID 签名、公证；本项目默认采用适合本机 Xcode 开发的 ad-hoc 签名，不等于已公证发行版。
+Or open `MacAppDoctor.xcodeproj` in Xcode and press ⌘R.
 
-## 3. 示例：VMware Fusion “已损坏”
-
-1. 把 `/Applications/VMware Fusion.app`（或 DMG 里的那个）拖进 OpenAnyway 窗口。
-2. 如果结论是“被 Gatekeeper 下载隔离拦截”：勾选推荐的“移除下载隔离标记”，点击开始修复（需输入管理员密码），然后“打开试试”。
-3. 如果结论是“开发者签名已损坏”：说明文件内容和签名对不上，**最好从 Broadcom 官网重新下载**。VMware 依赖虚拟化等特殊权限，ad-hoc 重签名后虚拟机功能很可能无法使用。
-4. DMG 可以先拖入并粘贴官网 SHA-256 核对，确认下载完整。
-
-## 4. 已知限制
-
-- **不是杀毒软件**。签名有效或 Gatekeeper 接受都不是绝对安全证明。
-- 不联网下载发布者签名/哈希，不保证用户粘贴的 SHA-256 来自真实官方网站；用户必须自行核对来源。
-- `spctl` 是系统评估，`stapler validate` 只验证是否附加了可用票据，不代表全部在线公证状态；没有将“无 stapled ticket”直接判定为恶意软件。
-- APP 的检查对已挂载 DMG 内的文件可能受只读权限限制。
-- Finder 右键扩展、自动监控 Gatekeeper 弹窗、批量处理**尚未实现**。
-- 如果 Xcode 无法运行，请先选择 `My Mac`、检查最低 macOS 版本并根据自身环境调整签名选项。
-
-## 5. 工程结构
-
-```text
-MacAppDoctor.xcodeproj/        Xcode 工程与共享 Scheme
-MacAppDoctor/
-  MacAppDoctorApp.swift        应用入口
-  Core/
-    Models.swift              数据模型（报告、修复动作、风险等级）
-    DiagnosisEngine.swift     纯逻辑：判断原因 + 推荐修复
-    ExtendedAttributes.swift  直接读写扩展属性（隔离标记、下载来源）
-    CommandRunner.swift       无 shell 参数传递、管理员执行、哈希工具
-    FileInspector.swift       只读检查
-    RepairService.swift       按序执行修复、管理员权限回退、备份、复查
-  UI/
-    AppState.swift            主状态管理与异步检查
-    Components.swift          通用视觉组件、文件选择
-    ContentView.swift         窗口内容
-    MainView.swift            唯一的主页面：拖入应用 → 一键修复 / 一键放行
-    OpenAnywayAutomator.swift 自动点击系统设置里的“仍要打开”
-    OpenAnywayGuide.swift     手动放行步骤
-  Assets.xcassets/             App 图标
-Tests/CoreSmokeTests.swift     可在 Linux/macOS 检查的策略用例
-```
-
-## 6. 开发自检
-
-在 macOS 或有 Swift 工具链的环境中，可以执行：
+Run the core tests:
 
 ```bash
-swiftc -typecheck MacAppDoctor/Core/*.swift
-swiftc MacAppDoctor/Core/*.swift Tests/CoreSmokeTests.swift -o /tmp/macappdoctor-test
-/tmp/macappdoctor-test
+swiftc MacAppDoctor/Core/*.swift Tests/CoreSmokeTests.swift -o /tmp/openanyway-tests && /tmp/openanyway-tests
 ```
 
-`swiftc -typecheck` 覆盖核心模块；SwiftUI 界面和系统工具的实际集成仍需在 **macOS + Xcode** 测试。
+<details>
+<summary>Project structure</summary>
 
-## 7. 安全原则
-
-用户决定软件来自何处；代码只做可验证的本地技术检查。禁止任意开启不安全的通用绕过开关，禁止删除系统安全数据库，禁止未经明确同意静默修改应用。
+```text
+MacAppDoctor/
+  Core/                       Logic, no UI (unit-tested)
+    FileInspector.swift       Read-only checks: signature, quarantine, Gatekeeper, architecture…
+    DiagnosisEngine.swift     Works out the cause and recommended fixes
+    RepairService.swift       Runs the fixes, admin fallback, backup, re-check
+    ExtendedAttributes.swift  Quarantine / extended-attribute access
+    CommandRunner.swift       Runs system tools without a shell
+  UI/
+    MainView.swift            The single main window
+    OpenAnywayAutomator.swift Clicks “Open Anyway” via the Accessibility API
+    OpenAnywayGuide.swift     Manual Open Anyway steps
+Tests/CoreSmokeTests.swift    Core tests
+generate_project.py           Regenerates the Xcode project
+```
+</details>

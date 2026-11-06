@@ -127,7 +127,7 @@ for name, ident, config, is_target in [
           'PRODUCT_NAME':'"OpenAnyway"', 'SDKROOT':'macosx',
           'SUPPORTED_PLATFORMS':'macosx', 'SWIFT_VERSION':'5.0',
           'ONLY_ACTIVE_ARCH':'YES' if config=='debug' else 'NO',
-          'SWIFT_EMIT_LOC_STRINGS':'YES',
+          'SWIFT_EMIT_LOC_STRINGS':'YES', 'MARKETING_VERSION':'2.0.0', 'CURRENT_PROJECT_VERSION':'1', 'INFOPLIST_KEY_NSHumanReadableCopyright':'"© 2026 Atonettt"',
         }
     add(f'\t\t{ident} /* {name} */ = {{isa = XCBuildConfiguration; buildSettings = {{')
     add(settings_lines(s))
